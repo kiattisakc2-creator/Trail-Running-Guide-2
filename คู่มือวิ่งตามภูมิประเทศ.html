@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือการจัดกิจกรรมวิ่งตามภูมิประเทศ (Trail Running)</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #1a5c38;
+    --primary-light: #2d8653;
+    --accent: #e8a020;
+    --accent-dark: #c47c10;
+    --bg: #f5f7f5;
+    --card: #ffffff;
+    --text: #1e2d1e;
+    --text-muted: #5a6b5a;
+    --border: #d0ddd0;
+    --danger: #c0392b;
+    --warning: #e67e22;
+    --info: #2980b9;
+    --success: #27ae60;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* ===== HEADER ===== */
+  .hero {
+    background: linear-gradient(135deg, #0d3b22 0%, #1a5c38 50%, #2d8653 100%);
+    color: white;
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .hero h2 {
+    font-size: 20px;
+    font-weight: 400;
+    opacity: 0.85;
+    margin-bottom: 24px;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-size: 32px; font-weight: 700; color: var(--accent); }
+  .hero-stat .lbl { font-size: 13px; opacity: 0.8; }
+
+  /* ===== LAYOUT ===== */
+  .layout { display: flex; max-width: 1200px; margin: 0 auto; padding: 30px 20px; gap: 30px; }
+
+  /* ===== SIDEBAR / TOC ===== */
+  .toc {
+    width: 260px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .toc h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary);
+  }
+  .toc ol { list-style: none; counter-reset: toc; }
+  .toc li { counter-increment: toc; margin-bottom: 2px; }
+  .toc a {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .toc a::before {
+    content: counter(toc);
+    min-width: 20px;
+    height: 20px;
+    background: var(--bg);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+  .toc a:hover { background: #e8f5ee; color: var(--primary); }
+  .toc a.active { background: var(--primary); color: white; }
+  .toc a.active::before { background: rgba(255,255,255,0.2); color: white; }
+
+  /* ===== CONTENT ===== */
+  .content { flex: 1; min-width: 0; }
+
+  /* ===== SECTION ===== */
+  .section {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 32px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--bg);
+  }
+  .section-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .icon-green { background: #e8f5ee; }
+  .icon-blue { background: #e8f0f8; }
+  .icon-orange { background: #fdf3e3; }
+  .icon-red { background: #fde8e6; }
+  .icon-purple { background: #f0ebf8; }
+  .section-title h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 2px;
+  }
+  .section-title p { font-size: 13px; color: var(--text-muted); }
+
+  /* ===== TYPOGRAPHY ===== */
+  p { margin-bottom: 12px; }
+  .lead { font-size: 17px; color: var(--text-muted); line-height: 1.9; margin-bottom: 20px; }
+
+  /* ===== CARDS GRID ===== */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
+  .card {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 18px;
+    border-left: 4px solid var(--primary);
+  }
+  .card.orange { border-color: var(--accent); }
+  .card.red { border-color: var(--danger); }
+  .card.blue { border-color: var(--info); }
+  .card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
+  .card.orange h4 { color: var(--accent-dark); }
+  .card.red h4 { color: var(--danger); }
+  .card.blue h4 { color: var(--info); }
+  .card p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+
+  /* ===== BADGE ===== */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-orange { background: #fff3cd; color: #856404; }
+  .badge-red { background: #f8d7da; color: #721c24; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+
+  /* ===== TABLE ===== */
+  .tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 10px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  thead th {
+    background: var(--primary);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  tbody tr:nth-child(even) { background: #f8fbf8; }
+  tbody td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: #e8f5ee; }
+
+  /* ===== CHECKLIST ===== */
+  .checklist { list-style: none; margin: 16px 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14.5px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .chk {
+    width: 20px; height: 20px;
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .checklist strong { color: var(--primary); }
+
+  /* ===== ALERT BOX ===== */
+  .alert {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14.5px;
+  }
+  .alert-icon { font-size: 20px; flex-shrink: 0; }
+  .alert-warning { background: #fff8e6; border-left: 4px solid var(--warning); }
+  .alert-danger { background: #fdecea; border-left: 4px solid var(--danger); }
+  .alert-info { background: #e8f4fd; border-left: 4px solid var(--info); }
+  .alert-success { background: #e8f8ed; border-left: 4px solid var(--success); }
+
+  /* ===== CHART CONTAINER ===== */
+  .chart-box {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .chart-box h4 { font-size: 15px; font-weight: 600; margin-bottom: 16px; color: var(--primary); }
+  .chart-container { position: relative; height: 280px; }
+
+  /* ===== STEPS / TIMELINE ===== */
+  .steps { margin: 20px 0; }
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    left: 19px; top: 40px;
+    width: 2px;
+    height: calc(100% + 4px);
+    background: var(--border);
+  }
+  .step:last-child::before { display: none; }
+  .step-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step-body h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .step-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+
+  /* ===== PHASE TABS ===== */
+  .phase-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .phase-tab {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .phase-tab.before { background: #e8f4fd; color: var(--info); border-color: var(--info); }
+  .phase-tab.during { background: #fff3cd; color: #856404; border-color: var(--accent); }
+  .phase-tab.after { background: #d4edda; color: var(--success); border-color: var(--success); }
+
+  /* ===== DISTANCE TABLE ===== */
+  .dist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  .dist-card {
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 2px solid;
+  }
+  .dist-short { border-color: var(--success); background: #f0fbf5; }
+  .dist-mid { border-color: var(--warning); background: #fffaf0; }
+  .dist-long { border-color: var(--danger); background: #fef8f8; }
+  .dist-card .km { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .dist-short .km { color: var(--success); }
+  .dist-mid .km { color: var(--warning); }
+  .dist-long .km { color: var(--danger); }
+  .dist-card .name { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .dist-card p { font-size: 12.5px; color: var(--text-muted); margin: 0; }
+
+  /* ===== ORG / ROLE GRID ===== */
+  .role-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+  .role-card {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .role-icon { font-size: 22px; flex-shrink: 0; }
+  .role-card h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 2px; }
+  .role-card p { font-size: 12.5px; color: var(--text-muted); margin: 0; }
+
+  /* ===== EQUIPMENT LIST ===== */
+  .equip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 16px 0; }
+  .equip-item {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .equip-item span { font-size: 18px; }
+
+  /* ===== RISK MATRIX ===== */
+  .risk-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+  .risk-level {
+    width: 80px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .risk-high { background: #f8d7da; color: #721c24; }
+  .risk-med { background: #fff3cd; color: #856404; }
+  .risk-low { background: #d4edda; color: #155724; }
+  .risk-bar-wrap { flex: 1; height: 10px; background: #eee; border-radius: 5px; }
+  .risk-bar { height: 100%; border-radius: 5px; }
+  .risk-bar-h { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+  .risk-bar-m { background: linear-gradient(90deg, #f39c12, #e67e22); }
+  .risk-bar-l { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+  .risk-desc { font-size: 12.5px; color: var(--text-muted); min-width: 120px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--primary);
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    padding: 24px;
+    font-size: 13px;
+    margin-top: 20px;
+  }
+  footer strong { color: white; }
+
+  /* ===== SCROLL TOP ===== */
+  #scrollTop {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    width: 44px; height: 44px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 99;
+  }
+  #scrollTop:hover { background: var(--primary-light); }
+
+  @media (max-width: 768px) {
+    .layout { flex-direction: column; }
+    .toc { width: 100%; position: static; }
+    .hero h1 { font-size: 24px; }
+    .dist-grid { grid-template-columns: 1fr; }
+    .role-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">กระทรวงการท่องเที่ยวและกีฬา</div>
+  <h1>คู่มือการจัดกิจกรรมวิ่งตามภูมิประเทศ</h1>
+  <h2>Trail Running Event Organizer Guide</h2>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">9</div><div class="lbl">หัวข้อหลัก</div></div>
+    <div class="hero-stat"><div class="num">84</div><div class="lbl">รายการ Checklist</div></div>
+    <div class="hero-stat"><div class="num">3–160</div><div class="lbl">กม. ระยะทาง</div></div>
+    <div class="hero-stat"><div class="num">5</div><div class="lbl">หมวดปฏิบัติการ</div></div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h3>📋 สารบัญ</h3>
+    <ol>
+      <li><a href="#s0">บทนำ</a></li>
+      <li><a href="#s1">คำจำกัดความ</a></li>
+      <li><a href="#s2">แนวคิดพื้นฐาน</a></li>
+      <li><a href="#s3">ลักษณะกิจกรรม</a></li>
+      <li><a href="#s4">ความปลอดภัย</a></li>
+      <li><a href="#s5">การเตรียมการก่อนแข่ง</a></li>
+      <li><a href="#s6">การบริหารวันแข่ง</a></li>
+      <li><a href="#s7">ทีมผู้จัดและความปลอดภัย</a></li>
+      <li><a href="#s8">แผนการแพทย์</a></li>
+      <li><a href="#s9">Checklist สรุป</a></li>
+    </ol>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- บทนำ -->
+    <section class="section" id="s0">
+      <div class="section-header">
+        <div class="section-icon icon-green">🏃</div>
+        <div class="section-title">
+          <h2>บทนำ</h2>
+          <p>ที่มาและวัตถุประสงค์ของคู่มือ</p>
+        </div>
+      </div>
+      <p class="lead">การวิ่งตามภูมิประเทศ (Trail Running) กำลังได้รับความนิยมในไทยอย่างรวดเร็ว คู่มือฉบับนี้จัดทำโดยกระทรวงการท่องเที่ยวและกีฬา เพื่อให้ผู้จัดกิจกรรมสามารถดำเนินการได้อย่างมีมาตรฐานและปลอดภัย</p>
+
+      <div class="cards">
+        <div class="card">
+          <h4>🏔️ กีฬาผจญภัยใกล้ธรรมชาติ</h4>
+          <p>วิ่งบนเส้นทางธรรมชาติ ป่า เขา ห่างจากถนนใหญ่ สร้างความตื่นเต้นและเพลิดเพลิน</p>
+        </div>
+        <div class="card orange">
+          <h4>📈 กระแสเติบโตเร็ว</h4>
+          <p>ได้รับการสนับสนุนจากนโยบายรัฐ เชื่อมโยงการท่องเที่ยวและส่งเสริมสุขภาพ</p>
+        </div>
+        <div class="card blue">
+          <h4>📖 คู่มือแนวปฏิบัติ</h4>
+          <p>ไม่ใช่กฎกติกาตายตัว แต่เป็น แนวทางให้นำไปประยุกต์ตามพื้นที่จริง</p>
+        </div>
+        <div class="card red">
+          <h4>⚠️ ความรับผิดชอบ</h4>
+          <p>ผู้จัดกิจกรรมคือผู้รับผิดชอบหลักทั้งหมด ไม่สามารถปัดให้ผู้อื่นรับแทนได้</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- คำจำกัดความ -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <div class="section-icon icon-green">📏</div>
+        <div class="section-title">
+          <h2>๑. คำจำกัดความของการวิ่งตามภูมิประเทศ</h2>
+          <p>Trail Running คืออะไร และแตกต่างจากการวิ่งถนนอย่างไร</p>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-icon">ℹ️</div>
+        <div>การวิ่งตามภูมิประเทศ คือ กีฬาความทนทาน (Endurance) บนเส้นทางธรรมชาติ ผสมผสานการเดิน วิ่ง ปีนป่าย บนพื้นผิวหลากหลาย เช่น ลูกรัง กรวด ดิน หิน ป่า เขา — <strong>ไม่จำเป็นต้องยากเสมอไป</strong> สวนสาธารณะหรือถนนลูกรังในชนบทก็จัดได้</div>
+      </div>
+
+      <div class="dist-grid">
+        <div class="dist-card dist-short">
+          <div class="km">3–16 กม.</div>
+          <div class="name">ระยะสั้น</div>
+          <p>เน้นความเร็ว นักวิ่งนำจะวิ่งเร็วมาก ต้องทำเครื่องหมายเส้นทางให้ชัดเจนพิเศษ</p>
+        </div>
+        <div class="dist-card dist-mid">
+          <div class="km">16–32 กม.</div>
+          <div class="name">ระยะกลาง</div>
+          <p>ต้องมีเครื่องหมายบอกทาง/มาร์แชลทุกจุดสำคัญ เตรียมสถานีบริการทุก 10 กม.</p>
+        </div>
+        <div class="dist-card dist-long">
+          <div class="km">32–160 กม.</div>
+          <div class="name">ระยะไกล</div>
+          <p>ต้องการทักษะอ่านแผนที่ GPS ผู้เข้าร่วมอาจวิ่งข้ามคืน ต้องการแผนการแพทย์เข้มงวด</p>
+        </div>
+      </div>
+
+      <div class="chart-box">
+        <h4>📊 ระยะทางและระดับความเสี่ยง</h4>
+        <div class="chart-container">
+          <canvas id="distChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- แนวคิดพื้นฐาน -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <div class="section-icon icon-blue">🧠</div>
+        <div class="section-title">
+          <h2>๒. แนวคิดพื้นฐานในการจัดกิจกรรม</h2>
+          <p>หลักการสำคัญที่ผู้จัดและผู้เข้าร่วมต้องระลึกเสมอ</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>ทุกพื้นที่มีเจ้าของ</h4>
+            <p>ไม่ว่าจะเป็นส่วนบุคคล องค์กร หรือราชการ ต้องขออนุญาตเป็นลายลักษณ์อักษรทุกครั้ง</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>เจ้าของพื้นที่จะอนุญาตถ้าไม่ทำให้เสียหาย</h4>
+            <p>ผู้จัดต้องแสดงให้เห็นว่ากิจกรรมจะไม่ทำลายสภาพแวดล้อมและทรัพย์สิน</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>นักวิ่งไม่มีสิทธิ์พิเศษเหนือผู้ใช้ทางคนอื่น</h4>
+            <p>แม้จะได้รับสิทธิ์ผ่านทาง แต่ต้องเคารพผู้ใช้ทางอื่นและกฎหมายที่เกี่ยวข้อง</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ลักษณะกิจกรรม -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <div class="section-icon icon-orange">🗺️</div>
+        <div class="section-title">
+          <h2>๓. ลักษณะของกิจกรรม</h2>
+          <p>ปัจจัยที่ผู้จัดต้องตัดสินใจตั้งแต่เริ่มต้น</p>
+        </div>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>ปัจจัย</th><th>รายละเอียด</th><th>หมายเหตุ</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ระยะทาง</strong></td>
+              <td>กำหนดระยะทางให้ชัดเจน (โดยประมาณ)</td>
+              <td><span class="badge badge-orange">ต้องระบุ</span></td>
+            </tr>
+            <tr>
+              <td><strong>เส้นทาง</strong></td>
+              <td>สำรวจ ขออนุญาต ทำเครื่องหมาย</td>
+              <td><span class="badge badge-red">สำคัญมาก</span></td>
+            </tr>
+            <tr>
+              <td><strong>ระดับผจญภัย</strong></td>
+              <td>&gt; 8 กม. ถือว่ามีความเสี่ยงภัย ต้องมีแผนความปลอดภัย</td>
+              <td><span class="badge badge-red">บังคับ</span></td>
+            </tr>
+            <tr>
+              <td><strong>การนำทาง</strong></td>
+              <td>ป้ายสัญลักษณ์, มาร์แชล, แผนที่, GPS</td>
+              <td><span class="badge badge-blue">เลือกได้</span></td>
+            </tr>
+            <tr>
+              <td><strong>อายุขั้นต่ำ</strong></td>
+              <td>กำหนดตามระยะทางและความเสี่ยง</td>
+              <td><span class="badge badge-orange">ต้องระบุ</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ความปลอดภัย -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <div class="section-icon icon-red">🛡️</div>
+        <div class="section-title">
+          <h2>๔. ความปลอดภัยและการประเมินความเสี่ยง</h2>
+          <p>หัวใจสำคัญของการจัดกิจกรรม Trail Running</p>
+        </div>
+      </div>
+
+      <div class="alert alert-danger">
+        <div class="alert-icon">⚠️</div>
+        <div><strong>ผู้จัดคือผู้รับผิดชอบเพียงผู้เดียว</strong> — แม้นักกีฬาจะยอมรับความเสี่ยงเอง ผู้จัดก็ยังไม่พ้นความรับผิดชอบ ต้องทำการประเมินความเสี่ยงอย่างซื่อสัตย์ก่อนจัดทุกครั้ง</div>
+      </div>
+
+      <h3 style="font-size:15px;margin:20px 0 12px;color:var(--primary);">ระดับความเสี่ยงตามประเภทพื้นที่</h3>
+      <div class="risk-row">
+        <span class="risk-level risk-high">สูงมาก</span>
+        <div class="risk-bar-wrap"><div class="risk-bar risk-bar-h" style="width:90%"></div></div>
+        <span class="risk-desc">เส้นทางเลียบเหว, หน้าผา, ป่าทึบ</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-level risk-high">สูง</span>
+        <div class="risk-bar-wrap"><div class="risk-bar risk-bar-h" style="width:70%"></div></div>
+        <span class="risk-desc">ภูเขา, ทางชัน, พื้นหิน</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-level risk-med">ปานกลาง</span>
+        <div class="risk-bar-wrap"><div class="risk-bar risk-bar-m" style="width:50%"></div></div>
+        <span class="risk-desc">ถนนลูกรัง, ป่าโปร่ง</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-level risk-low">ต่ำ</span>
+        <div class="risk-bar-wrap"><div class="risk-bar risk-bar-l" style="width:25%"></div></div>
+        <span class="risk-desc">สวนสาธารณะ, ทุ่งนา</span>
+      </div>
+
+      <div class="alert alert-warning" style="margin-top:20px">
+        <div class="alert-icon">🚂</div>
+        <div><strong>เส้นทางตัดทางรถไฟ:</strong> ต้องขอตารางเวลาอย่างเป็นทางการ รวมถึงรถขนส่งสินค้า ไม่ใช่แค่รถโดยสาร และต้องประกาศให้ผู้เข้าร่วมทราบล่วงหน้า</div>
+      </div>
+    </section>
+
+    <!-- การเตรียมการ -->
+    <section class="section" id="s5">
+      <div class="section-header">
+        <div class="section-icon icon-blue">📋</div>
+        <div class="section-title">
+          <h2>๕. การเตรียมการก่อนการแข่งขัน</h2>
+          <p>ขั้นตอนสำคัญที่ต้องดำเนินการก่อนวันงาน</p>
+        </div>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>รายการ</th><th>รายละเอียดสำคัญ</th><th>ความสำคัญ</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>5.1</td>
+              <td><strong>ขออนุญาตจัดการแข่งขัน</strong></td>
+              <td>ขออนุญาตจากหน่วยงานในพื้นที่ ใช้ถนน เสียง ผ่านทาง เป็นลายลักษณ์อักษร</td>
+              <td><span class="badge badge-red">บังคับ</span></td>
+            </tr>
+            <tr>
+              <td>5.2</td>
+              <td><strong>การประกันภัย</strong></td>
+              <td>ประกันอุบัติเหตุผู้เข้าร่วม + ผู้จัด + เจ้าหน้าที่ หากงบพอควรทำ Public Liability</td>
+              <td><span class="badge badge-red">บังคับ</span></td>
+            </tr>
+            <tr>
+              <td>5.4</td>
+              <td><strong>แผนที่</strong></td>
+              <td>อัตราส่วนไม่น้อยกว่า 1:50,000 ให้ผู้เข้าร่วมและทีมงานทุกคน</td>
+              <td><span class="badge badge-orange">สำคัญ</span></td>
+            </tr>
+            <tr>
+              <td>5.5</td>
+              <td><strong>สำรวจเส้นทาง</strong></td>
+              <td>สำรวจล่วงหน้าอย่างน้อย 1 ปี + ตรวจซ้ำภายใน 1 สัปดาห์ก่อนจัด วางเส้นทางสำรอง</td>
+              <td><span class="badge badge-red">บังคับ</span></td>
+            </tr>
+            <tr>
+              <td>5.10</td>
+              <td><strong>ประชาสัมพันธ์</strong></td>
+              <td>ระบุ: อุปกรณ์จำเป็น, ชนิดภูมิประเทศ, ความสูงสะสม, เวลาตัดตัว, อายุขั้นต่ำ</td>
+              <td><span class="badge badge-orange">สำคัญ</span></td>
+            </tr>
+            <tr>
+              <td>5.11</td>
+              <td><strong>เจ้าหน้าที่/อาสาสมัคร</strong></td>
+              <td>อธิบาย สาธิต และมอบเอกสารเป็นลายลักษณ์อักษรให้ทุกคนก่อนปฏิบัติงาน</td>
+              <td><span class="badge badge-orange">สำคัญ</span></td>
+            </tr>
+            <tr>
+              <td>5.12</td>
+              <td><strong>แผนความปลอดภัย</strong></td>
+              <td>ต้องเข้าถึงผู้บาดเจ็บได้ภายใน 15 นาที หากไม่ได้ต้องแจ้งผู้เข้าร่วมทราบ</td>
+              <td><span class="badge badge-red">บังคับ</span></td>
+            </tr>
+            <tr>
+              <td>5.18</td>
+              <td><strong>เครื่องหมายบอกทาง</strong></td>
+              <td>เทปผูกต้นไม้ (ขาว-แดง), ป้ายลูกศร, เทปสะท้อนแสง (กลางคืน), ทดสอบโดยคนแปลกหน้า</td>
+              <td><span class="badge badge-red">บังคับ</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="chart-box">
+        <h4>⏳ ไทม์ไลน์การเตรียมงาน (แนะนำ)</h4>
+        <div class="chart-container">
+          <canvas id="timelineChart"></canvas>
+        </div>
+      </div>
+
+      <h3 style="font-size:15px;margin:20px 0 12px;color:var(--primary);">🚩 อุปกรณ์บังคับสำหรับนักวิ่ง (Mandatory Gear)</h3>
+      <div class="equip-grid">
+        <div class="equip-item"><span>🍫</span> อาหารฉุกเฉิน 12 ชม.</div>
+        <div class="equip-item"><span>🩹</span> อุปกรณ์ปฐมพยาบาล</div>
+        <div class="equip-item"><span>🧥</span> แจ็กเกตกันน้ำ</div>
+        <div class="equip-item"><span>🌧️</span> เสื้อกันฝน</div>
+        <div class="equip-item"><span>🔦</span> ไฟฉาย + แบตสำรอง</div>
+        <div class="equip-item"><span>📣</span> นกหวีด</div>
+        <div class="equip-item"><span>💧</span> เครื่องดื่ม</div>
+        <div class="equip-item"><span>📱</span> โทรศัพท์มือถือ</div>
+        <div class="equip-item"><span>🗺️</span> แผนที่การแข่งขัน</div>
+      </div>
+    </section>
+
+    <!-- การบริหารวันแข่ง -->
+    <section class="section" id="s6">
+      <div class="section-header">
+        <div class="section-icon icon-orange">🏁</div>
+        <div class="section-title">
+          <h2>๖. การบริหารจัดการในวันแข่ง</h2>
+          <p>ขั้นตอนและข้อควรระวังในวันจัดกิจกรรม</p>
+        </div>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>หัวข้อ</th><th>ประเด็นสำคัญ</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>6.3 การสื่อสาร</strong></td>
+              <td>มาร์แชลทุกคนต้องติดต่อได้ตลอด ใช้วิทยุสื่อสารแยกช่องระหว่างทีมแพทย์และทีมจัดการ</td>
+            </tr>
+            <tr>
+              <td><strong>6.4 จุดตัดถนน</strong></td>
+              <td>เฉพาะตำรวจเท่านั้นที่หยุดรถได้ มาร์แชลอายุ ≥16 ปี (จุดเสี่ยง ≥18 ปี) มีหน้าที่บอกทางเท่านั้น</td>
+            </tr>
+            <tr>
+              <td><strong>6.5 สถานีบริการ</strong></td>
+              <td>ระยะ &lt;32 กม.: ห่างกัน ≤10 กม. / ระยะไกล: ต้องมีอาหาร ผลไม้ เกลือแร่ เปิดบริการจนคนสุดท้ายผ่าน</td>
+            </tr>
+            <tr>
+              <td><strong>6.8 ผู้หลงทาง</strong></td>
+              <td>ลงทะเบียนก่อนปล่อยตัว ส่งรายชื่อทุก checkpoint ทีมปิดท้ายตรวจสอบหมายเลขที่ยังไม่ผ่าน</td>
+            </tr>
+            <tr>
+              <td><strong>6.11 อุปกรณ์บังคับ</strong></td>
+              <td>ตรวจสอบก่อนปล่อยตัว ระหว่างแข่ง และเมื่อเข้าเส้นชัย — ไม่ครบ ไม่มีสิทธิ์แข่ง</td>
+            </tr>
+            <tr>
+              <td><strong>6.15 เวลาตัดตัว</strong></td>
+              <td>ห้ามให้วิ่งต่อหลัง Cut-off โดยเด็ดขาด เพราะกระทบ checkpoint และทีมความปลอดภัยอื่น</td>
+            </tr>
+            <tr>
+              <td><strong>6.10 ทีมปิดท้าย</strong></td>
+              <td>มาร์แชลวิ่งตามนักวิ่งคนสุดท้าย หรือใช้จักรยาน MTB 2 คัน ทีมอย่างน้อย 2 คนต่อช่วง</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-success">
+        <div class="alert-icon">✅</div>
+        <div><strong>หลังงาน:</strong> เก็บกวาดขยะและเครื่องหมายทั้งหมดให้หมด คืนพื้นที่ในสภาพเดิม เพื่อรักษาความสัมพันธ์กับเจ้าของพื้นที่และชุมชน</div>
+      </div>
+    </section>
+
+    <!-- ทีมผู้จัดและความปลอดภัย -->
+    <section class="section" id="s7">
+      <div class="section-header">
+        <div class="section-icon icon-purple">👥</div>
+        <div class="section-title">
+          <h2>๗–๘. ทีมผู้จัดและการจัดการความปลอดภัย</h2>
+          <p>โครงสร้างทีม บทบาท และมาตรการความปลอดภัย</p>
+        </div>
+      </div>
+
+      <div class="role-grid">
+        <div class="role-card">
+          <div class="role-icon">🎯</div>
+          <div>
+            <h4>ผู้อำนวยการการแข่งขัน</h4>
+            <p>รับผิดชอบภาพรวม ตัดสินใจ ยกเลิก/เลื่อน กำกับทุกทีม</p>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon">🛣️</div>
+          <div>
+            <h4>ผู้จัดการความปลอดภัยและเส้นทาง</h4>
+            <p>เตรียมเส้นทาง ป้าย มาร์แชล บริหารจุดเสี่ยง</p>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon">🚑</div>
+          <div>
+            <h4>ผู้จัดการช่วยเหลือฉุกเฉิน</h4>
+            <p>แผนการเข้าช่วยเหลือ นำส่งผู้บาดเจ็บ ประสานแพทย์</p>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon">🏥</div>
+          <div>
+            <h4>ผู้อำนวยการทางการแพทย์</h4>
+            <p>วางแผนการแพทย์ ควบคุมสถานีช่วยเหลือ ประสานโรงพยาบาล</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:15px;margin:20px 0 12px;color:var(--primary);">⛈️ มาตรการเมื่อสภาพอากาศแปรปรวน</h3>
+      <div class="cards">
+        <div class="card">
+          <h4>ติดตามทุก 6 ชั่วโมง</h4>
+          <p>ตรวจสภาพอากาศล่วงหน้าอย่างสม่ำเสมอ เพื่อใช้ตัดสินใจ</p>
+        </div>
+        <div class="card orange">
+          <h4>เตรียมเส้นทางฉุกเฉิน</h4>
+          <p>หากอากาศรุนแรง ใช้เส้นทางสำรองที่วางแผนไว้ล่วงหน้า</p>
+        </div>
+        <div class="card red">
+          <h4>ประกาศยุติการแข่งขัน</h4>
+          <p>ถ้าไม่มั่นใจในความปลอดภัยของผู้เข้าร่วมบนเส้นทาง</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- แผนการแพทย์ -->
+    <section class="section" id="s8">
+      <div class="section-header">
+        <div class="section-icon icon-red">🏥</div>
+        <div class="section-title">
+          <h2>๙. แผนการแพทย์และการช่วยเหลือฉุกเฉิน</h2>
+          <p>การเตรียมพร้อมทางการแพทย์อย่างครบถ้วน</p>
+        </div>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>บุคลากร</th><th>บทบาท</th><th>จำเป็น/เลือกได้</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ผู้อำนวยการทางการแพทย์</td>
+              <td>ควบคุมภาพรวม วางแผน ตัดสินใจในภาวะฉุกเฉิน</td>
+              <td><span class="badge badge-red">จำเป็น</span></td>
+            </tr>
+            <tr>
+              <td>แพทย์</td>
+              <td>เชี่ยวชาญภาวะฉุกเฉินที่อาจอันตรายถึงชีวิต</td>
+              <td><span class="badge badge-red">จำเป็น</span></td>
+            </tr>
+            <tr>
+              <td>พยาบาล</td>
+              <td>ปฏิบัติการดูแลผู้บาดเจ็บ</td>
+              <td><span class="badge badge-red">จำเป็น</span></td>
+            </tr>
+            <tr>
+              <td>ผู้ปฏิบัติการฉุกเฉินเบื้องต้น (EMT)</td>
+              <td>ช่วยเหลือเบื้องต้น เคลื่อนย้ายผู้บาดเจ็บ</td>
+              <td><span class="badge badge-red">จำเป็น</span></td>
+            </tr>
+            <tr>
+              <td>นักกายภาพบำบัด</td>
+              <td>ดูแลกล้ามเนื้อ ข้อต่อ อาการบาดเจ็บจากการวิ่ง</td>
+              <td><span class="badge badge-blue">เลือกได้</span></td>
+            </tr>
+            <tr>
+              <td>ผู้เชี่ยวชาญด้านเท้า</td>
+              <td>แผลพุพอง ปัญหาเท้าระยะไกล</td>
+              <td><span class="badge badge-blue">เลือกได้</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cards" style="margin-top:16px">
+        <div class="card red">
+          <h4>🏕️ สถานีหลัก</h4>
+          <p>ตั้งที่สถานีบริการ จุดพักใหญ่ พื้นที่เสี่ยงสูง มีเครื่องมือครบ เข้าถึงง่าย</p>
+        </div>
+        <div class="card orange">
+          <h4>🏃 สถานีรอง</h4>
+          <p>ระหว่างสถานีหลัก เข้าถึงภายใน 30 นาที ตั้งในพื้นที่ยากที่รถเข้าไม่ถึง</p>
+        </div>
+        <div class="card blue">
+          <h4>🚁 การนำส่ง</h4>
+          <p>รถ 4x4, มอเตอร์ไซค์, เฮลิคอปเตอร์, เดินเท้า ขึ้นกับสภาพภูมิประเทศ</p>
+        </div>
+      </div>
+
+      <div class="alert alert-warning" style="margin-top:16px">
+        <div class="alert-icon">⏱️</div>
+        <div>
+          <strong>เกณฑ์เวลาการเข้าช่วยเหลือ:</strong><br>
+          • พื้นที่รถเข้าถึงได้ → &lt; 1 ชั่วโมง<br>
+          • พื้นที่รถเข้าไม่ถึง → ทีมอย่างน้อย 6 คน เข้าถึงภายใน 2 ชั่วโมง<br>
+          • &gt; 1,000 คน → ต้องตั้งกองอำนวยการช่วยเหลือฉุกเฉินแยกต่างหาก
+        </div>
+      </div>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section class="section" id="s9">
+      <div class="section-header">
+        <div class="section-icon icon-green">✅</div>
+        <div class="section-title">
+          <h2>Checklist สรุปการจัดกิจกรรม (84 รายการ)</h2>
+          <p>แบ่งตามช่วงเวลา 5 หมวด</p>
+        </div>
+      </div>
+
+      <div class="phase-tabs">
+        <div class="phase-tab before">📌 ก่อนจัดงาน (48–64)</div>
+        <div class="phase-tab during">🏁 วันงาน (65–78)</div>
+        <div class="phase-tab after">📦 หลังงาน (79–84)</div>
+      </div>
+
+      <div class="chart-box">
+        <h4>📊 สัดส่วนรายการ Checklist แต่ละหมวด</h4>
+        <div class="chart-container" style="height:240px">
+          <canvas id="checklistChart"></canvas>
+        </div>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>หมวด</th><th>ข้อ</th><th>รายการสำคัญที่ต้องทำ</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="5"><strong>หมวด 1</strong><br><small>ข้อมูลที่ผู้จัดต้องเผยแพร่</small><br><span class="badge badge-orange">ข้อ 1–46</span></td>
+              <td>1–5</td><td>วัตถุประสงค์, กติกา, วันจัด, สถานที่, Race Director</td>
+            </tr>
+            <tr><td>6–10</td><td>การวัดระยะ, คะแนน ITRA, เวลาสูงสุด, Cut-off, สถานีฝากสัมภาระ</td></tr>
+            <tr><td>11–20</td><td>สถานี Supporter, แพทย์, Sweeper, ประเมินความเสี่ยง, แผนที่, ความสูงสะสม</td></tr>
+            <tr><td>21–30</td><td>ระบบสื่อสาร, ช่วงเวลา, พยากรณ์อากาศ, แผนฉุกเฉิน, จอดรถ, กลุ่มอายุ, จำนวนรับ, ค่าสมัคร</td></tr>
+            <tr><td>31–46</td><td>วิธีรับสมัคร, คุณสมบัติ, อุปกรณ์บังคับ, กำหนดการ, รางวัล, สิ่งที่จะได้รับ, หน่วยงานร่วม, ผู้รับผิดชอบ</td></tr>
+            <tr>
+              <td><strong>หมวด 2</strong><br><small>ข้อมูลผู้สมัคร</small><br><span class="badge badge-blue">ข้อ 47</span></td>
+              <td>47</td><td>จัดเก็บข้อมูลทางกายภาพของผู้สมัคร (สุขภาพ, โรคประจำตัว)</td>
+            </tr>
+            <tr>
+              <td rowspan="3"><strong>หมวด 3</strong><br><small>ก่อนจัดกิจกรรม</small><br><span class="badge badge-orange">ข้อ 48–64</span></td>
+              <td>48–52</td><td>ขออนุญาตราชการ, ขออนุญาตความมั่นคง/ทรัพยากร, ขออนุญาตจราจร, ประกันภัย, ป้ายเส้นทาง</td>
+            </tr>
+            <tr><td>53–58</td><td>ป้ายประชาสัมพันธ์, แสดงแผนที่, ประสานโรงพยาบาล, วางแผนแพทย์, แผนช่วยเหลือ, รถนำ</td>
+            </tr>
+            <tr><td>59–64</td><td>วางผังงาน, จัดหาเจ้าหน้าที่, ระบบรับสมัคร, ออกแบบเสื้อ/เหรียญ, ออกแบบ BIB, แผนยกเลิก/เลื่อน</td></tr>
+            <tr>
+              <td rowspan="2"><strong>หมวด 4</strong><br><small>วันจัดกิจกรรม</small><br><span class="badge badge-red">ข้อ 65–78</span></td>
+              <td>65–71</td><td>ติดตั้งป้าย, ติดตั้งพื้นที่, รวมพลเจ้าหน้าที่, รวมพลสื่อ, แจกอุปกรณ์, สรุปงาน, อุปกรณ์จุดปล่อย/ชัย</td>
+            </tr>
+            <tr><td>72–78</td><td>บริการแพทย์, สถานีบริการ, อุปกรณ์เส้นทาง, จุดประมวลผล, สถานีอาหาร, จุดนัดพบ, จุดแจกรางวัล</td></tr>
+            <tr>
+              <td><strong>หมวด 5</strong><br><small>หลังจัดกิจกรรม</small><br><span class="badge badge-green">ข้อ 79–84</span></td>
+              <td>79–84</td><td>เก็บสถานที่คืนสู่สภาพเดิม, เผยแพร่ผล, เล่าเรื่อง/ภาพ, ขอบคุณสปอนเซอร์, ประชุมประเมินผล, สรุปถอดบทเรียน</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-info" style="margin-top:20px">
+        <div class="alert-icon">💡</div>
+        <div><strong>หมายเหตุ:</strong> รายการที่มีเครื่องหมาย * คือรายการบังคับที่ต้องดำเนินการทุกครั้ง ส่วนรายการอื่นๆ พิจารณาตามขนาดและลักษณะของกิจกรรม</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>คู่มือการจัดกิจกรรมวิ่งตามภูมิประเทศ (Trail Running)</strong><br>
+  จัดทำโดย กระทรวงการท่องเที่ยวและกีฬา • สรุปและจัดรูปแบบใหม่เพื่อการใช้งาน
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Scroll to top button
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').style.display = window.scrollY > 400 ? 'flex' : 'none';
+});
+document.getElementById('scrollTop').style.cssText += 'align-items:center;justify-content:center;';
+
+// TOC active state
+const sections = document.querySelectorAll('section[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  tocLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// Chart 1: Distance + Risk
+const ctx1 = document.getElementById('distChart').getContext('2d');
+new Chart(ctx1, {
+  type: 'bar',
+  data: {
+    labels: ['3 กม.', '8 กม.', '16 กม.', '32 กม.', '50 กม.', '80 กม.', '100 กม.', '160 กม.'],
+    datasets: [{
+      label: 'ระดับความเสี่ยง (1–10)',
+      data: [1, 3, 4, 6, 7, 8, 9, 10],
+      backgroundColor: [
+        '#27ae60','#2ecc71','#f1c40f','#e67e22','#e74c3c','#c0392b','#922b21','#6e1609'
+      ],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: {
+      label: (c) => ` ระดับความเสี่ยง: ${c.raw}/10`
+    }}},
+    scales: {
+      y: { beginAtZero: true, max: 10, title: { display: true, text: 'ระดับความเสี่ยง' },
+           ticks: { font: { family: 'Sarabun' } } },
+      x: { ticks: { font: { family: 'Sarabun' } } }
+    }
+  }
+});
+
+// Chart 2: Timeline (horizontal bar)
+const ctx2 = document.getElementById('timelineChart').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['ขออนุญาต / ประกันภัย','สำรวจเส้นทาง (ครั้งแรก)','เปิดรับสมัคร','ประสานอาสาสมัคร','ซ้อมแผนฉุกเฉิน','ตรวจเส้นทางซ้ำ','ติดตั้งป้าย + สถานี','วันแข่งขัน'],
+    datasets: [{
+      label: 'ดำเนินการก่อนวันงาน (สัปดาห์)',
+      data: [52, 52, 24, 8, 4, 1, 0.3, 0],
+      backgroundColor: '#1a5c38',
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: {
+      label: (c) => c.raw === 0 ? ' วันงาน' : ` ก่อนวันงาน ${c.raw} สัปดาห์`
+    }}},
+    scales: {
+      x: { reverse: true, title: { display: true, text: 'สัปดาห์ก่อนวันงาน' },
+           ticks: { font: { family: 'Sarabun' } } },
+      y: { ticks: { font: { family: 'Sarabun', size: 12 } } }
+    }
+  }
+});
+
+// Chart 3: Checklist donut
+const ctx3 = document.getElementById('checklistChart').getContext('2d');
+new Chart(ctx3, {
+  type: 'doughnut',
+  data: {
+    labels: ['หมวด 1: ข้อมูลเผยแพร่ (46 ข้อ)','หมวด 2: ข้อมูลผู้สมัคร (1 ข้อ)','หมวด 3: ก่อนจัด (17 ข้อ)','หมวด 4: วันงาน (14 ข้อ)','หมวด 5: หลังงาน (6 ข้อ)'],
+    datasets: [{
+      data: [46, 1, 17, 14, 6],
+      backgroundColor: ['#1a5c38','#2980b9','#e67e22','#e74c3c','#27ae60'],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { font: { family: 'Sarabun', size: 12 }, padding: 12 } },
+      tooltip: { callbacks: { label: (c) => ` ${c.label}: ${c.raw} รายการ` } }
+    }
+  }
+});
+</script>
+</body>
+</html>

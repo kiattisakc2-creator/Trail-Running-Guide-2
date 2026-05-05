@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trail Running — คู่มือการจัดงาน</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --green-dark: #064e3b;
+  --green: #059669;
+  --green-light: #d1fae5;
+  --blue: #1d4ed8;
+  --blue-light: #dbeafe;
+  --orange: #d97706;
+  --orange-light: #fef3c7;
+  --purple: #7c3aed;
+  --purple-light: #ede9fe;
+  --red: #dc2626;
+  --red-light: #fee2e2;
+  --teal: #0891b2;
+  --teal-light: #cffafe;
+  --gray: #374151;
+  --gray-light: #f9fafb;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  background: #0f172a;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 70%, #059669 100%);
+  color: white;
+  text-align: center;
+  padding: 70px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.hero h1 span { color: #6ee7b7; }
+.hero p {
+  font-size: clamp(14px, 2vw, 18px);
+  opacity: 0.85;
+  max-width: 680px;
+  margin: 0 auto 32px;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+.stat-item { text-align: center; }
+.stat-num { font-size: clamp(24px, 4vw, 40px); font-weight: 800; color: #6ee7b7; }
+.stat-label { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+
+/* ===== CONTAINER ===== */
+.page { background: #f1f5f9; }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== SECTION TITLE ===== */
+.section-head {
+  text-align: center;
+  padding: 52px 20px 32px;
+}
+.section-head .tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.section-head h2 {
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+.section-head p { font-size: 15px; color: #64748b; max-width: 560px; margin: 0 auto; }
+
+/* ===== PHASE DEFINITION ===== */
+.phase-def {
+  background: white;
+  border-radius: 20px;
+  padding: 28px 28px 20px;
+  margin-bottom: 16px;
+  border-left: 5px solid;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  position: relative;
+  overflow: hidden;
+}
+.phase-def::after {
+  content: attr(data-icon);
+  position: absolute;
+  right: 20px;
+  top: 16px;
+  font-size: 48px;
+  opacity: 0.12;
+}
+.phase-def h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.phase-def h2 { font-size: clamp(18px, 3vw, 24px); font-weight: 800; color: #0f172a; margin-bottom: 12px; }
+
+/* ===== TIMELINE ===== */
+.timeline-wrap {
+  padding: 0 20px 60px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.timeline-phase {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  margin-bottom: 4px;
+  position: relative;
+}
+@media(max-width:640px){ .timeline-phase { grid-template-columns: 1fr; } }
+
+.tl-label {
+  padding: 20px 24px;
+  border-radius: 16px 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 6px;
+  min-height: 100px;
+}
+@media(max-width:640px){
+  .tl-label { border-radius: 16px 16px 0 0; padding: 16px 20px; }
+}
+.tl-label .phase-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+.tl-label .phase-name { font-size: 17px; font-weight: 800; line-height: 1.3; }
+.tl-label .phase-time { font-size: 12px; opacity: 0.8; font-weight: 600; margin-top: 4px; }
+
+.tl-content {
+  background: white;
+  padding: 20px 24px;
+  border-radius: 0 16px 16px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  align-content: start;
+}
+@media(max-width:640px){
+  .tl-content { border-radius: 0 0 16px 16px; }
+}
+
+.task-card {
+  background: var(--gray-light);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  transition: transform 0.15s;
+}
+.task-card:hover { transform: translateY(-1px); }
+.task-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.task-text { font-size: 13px; font-weight: 600; color: #1e293b; line-height: 1.4; }
+.task-sub { font-size: 11px; color: #64748b; margin-top: 3px; line-height: 1.4; }
+
+.critical { background: #fff1f2; }
+.critical .task-text { color: #9f1239; }
+
+/* ===== DISTANCE CARDS ===== */
+.dist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 0 20px 20px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.dist-card {
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.dist-card::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  opacity: 0.12;
+}
+.dist-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+.dist-card .km { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
+.dist-card ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.dist-card li { font-size: 13px; padding-left: 20px; position: relative; }
+.dist-card li::before { content: '→'; position: absolute; left: 0; opacity: 0.6; }
+
+/* ===== KEY RULES ===== */
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  padding: 0 20px 20px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.rule-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  border-top: 4px solid;
+}
+.rule-card .rule-icon { font-size: 28px; margin-bottom: 10px; }
+.rule-card h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+.rule-card p { font-size: 13px; color: #475569; line-height: 1.5; }
+.rule-card .rule-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+/* ===== MANDATORY GEAR ===== */
+.gear-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+}
+.gear-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+.gear-item {
+  background: white;
+  border-radius: 14px;
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.15s;
+}
+.gear-item:hover { transform: translateY(-2px); }
+.gear-item .gi { font-size: 32px; margin-bottom: 8px; }
+.gear-item p { font-size: 12px; font-weight: 600; color: #1e293b; }
+.gear-item small { font-size: 10px; color: #94a3b8; display: block; margin-top: 2px; }
+
+/* ===== SAFETY FLOW ===== */
+.safety-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+}
+.safety-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.sf-item {
+  padding: 24px 20px;
+  border-right: 1px solid #f1f5f9;
+  position: relative;
+}
+.sf-item:last-child { border-right: none; }
+.sf-item .sf-num {
+  font-size: 36px;
+  font-weight: 800;
+  color: #e2e8f0;
+  margin-bottom: 6px;
+}
+.sf-item h4 { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.sf-item p { font-size: 12px; color: #64748b; line-height: 1.5; }
+.sf-arrow {
+  position: absolute;
+  right: -10px; top: 50%;
+  transform: translateY(-50%);
+  width: 20px; height: 20px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  z-index: 1;
+}
+
+/* ===== ITRA SECTION ===== */
+.itra-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+@media(max-width:640px){ .itra-wrap { grid-template-columns: 1fr; } }
+.itra-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.itra-card .ic-icon { font-size: 36px; margin-bottom: 10px; }
+.itra-card h4 { font-size: 13px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.itra-card .ic-score { font-size: 40px; font-weight: 800; color: #1d4ed8; line-height: 1; margin-bottom: 6px; }
+.itra-card p { font-size: 12px; color: #94a3b8; }
+
+/* ===== MEDICAL ===== */
+.medical-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media(max-width:640px){ .medical-wrap { grid-template-columns: 1fr; } }
+.med-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.med-card h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.med-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.med-list li { font-size: 13px; color: #475569; padding: 8px 12px; background: #f8fafc; border-radius: 8px; display: flex; align-items: center; gap: 8px; }
+.med-list li::before { content: '✓'; color: #059669; font-weight: 700; }
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+.footer p { font-size: 13px; opacity: 0.5; }
+.footer strong { color: #6ee7b7; font-size: 15px; display: block; margin-bottom: 8px; }
+
+/* ===== COLORS ===== */
+.c-green { color: var(--green); }
+.c-blue { color: var(--blue); }
+.c-orange { color: var(--orange); }
+.c-purple { color: var(--purple); }
+.c-red { color: var(--red); }
+.c-teal { color: var(--teal); }
+
+.bg-green { background: #064e3b; color: white; }
+.bg-blue { background: #1e3a8a; color: white; }
+.bg-orange { background: #92400e; color: white; }
+.bg-purple { background: #4c1d95; color: white; }
+.bg-red { background: #991b1b; color: white; }
+.bg-teal { background: #164e63; color: white; }
+
+.border-green { border-color: var(--green); }
+.border-blue { border-color: var(--blue); }
+.border-orange { border-color: var(--orange); }
+.border-purple { border-color: var(--purple); }
+.border-red { border-color: var(--red); }
+.border-teal { border-color: var(--teal); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📘 คู่มือกระทรวงการท่องเที่ยวและกีฬา + มาตรฐาน ITRA</div>
+  <h1>คู่มือการจัดงาน<br><span>Trail Running</span><br>ฉบับอ่านง่าย</h1>
+  <p>สรุปขั้นตอนสำคัญทั้งหมดในการจัดกิจกรรมวิ่งเทรล ตั้งแต่วางแผนจนปิดงาน ตามมาตรฐานสากล</p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">5</div>
+      <div class="stat-label">ระยะขั้นตอน</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">84+</div>
+      <div class="stat-label">รายการตรวจสอบ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">ITRA</div>
+      <div class="stat-label">มาตรฐานสากล</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">ประเภทระยะทาง</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ===== SECTION 1: DEFINITION ===== -->
+<div class="section-head">
+  <div class="tag" style="background:#d1fae5;color:#064e3b;">Trail Running คืออะไร</div>
+  <h2>ก่อนจัดงาน — ต้องเข้าใจก่อน</h2>
+  <p>Trail Running แตกต่างจากการวิ่งถนนและ Cross-Country อย่างชัดเจน</p>
+</div>
+
+<div style="max-width:1080px;margin:0 auto;padding:0 20px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+  <div class="phase-def" style="border-color:#059669" data-icon="🏔️">
+    <h3 style="color:#059669">คำจำกัดความ</h3>
+    <h2>วิ่งตามภูมิประเทศ</h2>
+    <p style="font-size:14px;color:#475569">กีฬาที่อาศัยความทนทาน วิ่งบนเส้นทางธรรมชาติ — ป่า ภูเขา ทางลูกรัง — มีการเดิน-วิ่งปนกัน ต้องใช้สมรรถนะทุกด้านทั้งความเร็ว ความทน และพลังกล้ามเนื้อ</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+      <span style="background:#d1fae5;color:#064e3b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">≠ Cross-Country</span>
+      <span style="background:#d1fae5;color:#064e3b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">≠ วิ่งถนน</span>
+      <span style="background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">≥8 กม. = มีความเสี่ยง</span>
+    </div>
+  </div>
+  <div class="phase-def" style="border-color:#1d4ed8" data-icon="⚖️">
+    <h3 style="color:#1d4ed8">หลักการสำคัญ</h3>
+    <h2>3 สิ่งต้องระลึกเสมอ</h2>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14px;color:#475569;">
+      <li style="padding:8px;background:#eff6ff;border-radius:8px;">📍 ทุกพื้นที่มีเจ้าของ — ต้องขออนุญาตก่อนเสมอ</li>
+      <li style="padding:8px;background:#eff6ff;border-radius:8px;">🌿 ต้องไม่สร้างความเสียหายต่อสิ่งแวดล้อม</li>
+      <li style="padding:8px;background:#eff6ff;border-radius:8px;">🛡️ ผู้จัดคือผู้รับผิดชอบเพียงผู้เดียว — ปัดไม่ได้</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== SECTION 2: DISTANCE ===== -->
+<div class="section-head">
+  <div class="tag" style="background:#dbeafe;color:#1e3a8a;">ประเภทระยะทาง</div>
+  <h2>3 ประเภท — ความต้องการต่างกัน</h2>
+  <p>แต่ละระยะมีข้อกำหนดป้ายและการจัดการที่แตกต่างกัน</p>
+</div>
+
+<div class="dist-grid">
+  <div class="dist-card" style="background:#ecfdf5;border:2px solid #059669;">
+    <div class="dist-card::before" style="background:#059669;"></div>
+    <h3 style="color:#065f46;">ระยะสั้น</h3>
+    <div class="km" style="color:#059669;">&lt; 16 กม.</div>
+    <ul style="color:#064e3b;">
+      <li>วิ่งเร็ว — ดูแผนที่ไม่ทัน</li>
+      <li>ต้องมีป้ายบอกทาง ชัดมากเป็นพิเศษ</li>
+      <li>มาร์แชลทุกจุดเสี่ยง</li>
+      <li>ทดสอบป้ายโดยการวิ่งจริง</li>
+    </ul>
+  </div>
+  <div class="dist-card" style="background:#fffbeb;border:2px solid #d97706;">
+    <h3 style="color:#92400e;">ระยะกลาง</h3>
+    <div class="km" style="color:#d97706;">16 – 32 กม.</div>
+    <ul style="color:#78350f;">
+      <li>ใช้แผนที่ประกอบได้บ้าง</li>
+      <li>ต้องมีป้ายทุกจุดสับสน</li>
+      <li>วางแผนการติดป้าย 1 วัน/32 กม.</li>
+      <li>มาร์แชลประจำจุดเสี่ยง</li>
+    </ul>
+  </div>
+  <div class="dist-card" style="background:#faf5ff;border:2px solid #7c3aed;">
+    <h3 style="color:#4c1d95;">ระยะไกล</h3>
+    <div class="km" style="color:#7c3aed;">&gt; 32 กม.</div>
+    <ul style="color:#4c1d95;">
+      <li>วิ่งช้า — อ่านแผนที่ได้</li>
+      <li>แนะนำให้ Download GPS track</li>
+      <li>ป้ายสะท้อนแสง (สำหรับวิ่งกลางคืน)</li>
+      <li>ต้องมีแผนการแพทย์ครอบคลุม</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== SECTION 3: MAIN TIMELINE ===== -->
+<div class="section-head">
+  <div class="tag" style="background:#fce7f3;color:#9d174d;">Timeline การจัดงาน</div>
+  <h2>5 ขั้นตอนหลัก — ตั้งแต่ต้นจนจบ</h2>
+  <p>ลำดับขั้นตอนที่ต้องทำตามมาตรฐาน กระทรวงการท่องเที่ยวและกีฬา</p>
+</div>
+
+<div class="timeline-wrap">
+
+  <!-- PHASE 1 -->
+  <div class="timeline-phase" style="margin-bottom:12px;">
+    <div class="tl-label bg-green">
+      <span class="phase-num">ขั้นที่ 1</span>
+      <span class="phase-name">📋 วางแผน<br>& ออกแบบ</span>
+      <span class="phase-time">⏱ 6–12 เดือนก่อน</span>
+    </div>
+    <div class="tl-content">
+      <div class="task-card">
+        <span class="task-icon">🗺️</span>
+        <div>
+          <div class="task-text">กำหนดเส้นทาง</div>
+          <div class="task-sub">ระยะทาง, ความสูงสะสม, จุดเสี่ยง, เส้นทางสำรอง</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">📅</span>
+        <div>
+          <div class="task-text">เลือกวันจัดงาน</div>
+          <div class="task-sub">ไม่ทับซ้อนงานอื่น, งานประเพณีท้องถิ่น, ฤดูกาล</div>
+        </div>
+      </div>
+      <div class="task-card critical">
+        <span class="task-icon">📜</span>
+        <div>
+          <div class="task-text">สำรวจเส้นทาง</div>
+          <div class="task-sub">สำรวจล่วงหน้า 1 ปี + ตรวจซ้ำก่อนงาน 1 สัปดาห์</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🎯</span>
+        <div>
+          <div class="task-text">กำหนดวัตถุประสงค์</div>
+          <div class="task-sub">แข่งขัน / ความสนุก / ส่งเสริมการท่องเที่ยว</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">📊</span>
+        <div>
+          <div class="task-text">ขอ ITRA Score</div>
+          <div class="task-sub">Endurance Points + Mountain Level + Finisher Criteria</div>
+        </div>
+      </div>
+      <div class="task-card critical">
+        <span class="task-icon">⚠️</span>
+        <div>
+          <div class="task-text">ประเมินความเสี่ยง</div>
+          <div class="task-sub">ซื่อสัตย์และเป็นมืออาชีพ, วางแผนรับมือทุกสถานการณ์</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="timeline-phase" style="margin-bottom:12px;">
+    <div class="tl-label bg-blue">
+      <span class="phase-num">ขั้นที่ 2</span>
+      <span class="phase-name">📝 ขออนุญาต<br>& ประกัน</span>
+      <span class="phase-time">⏱ 3–6 เดือนก่อน</span>
+    </div>
+    <div class="tl-content">
+      <div class="task-card critical">
+        <span class="task-icon">🏛️</span>
+        <div>
+          <div class="task-text">ขออนุญาตส่วนราชการ</div>
+          <div class="task-sub">อปท., ป่าไม้, อุทยาน, เจ้าของที่ดินเอกชน (เป็นลายลักษณ์อักษร)</div>
+        </div>
+      </div>
+      <div class="task-card critical">
+        <span class="task-icon">🚔</span>
+        <div>
+          <div class="task-text">ตำรวจจราจร/ทางหลวง</div>
+          <div class="task-sub">จุดตัดถนน, การปิดเส้นทาง, รถนำขบวน</div>
+        </div>
+      </div>
+      <div class="task-card critical">
+        <span class="task-icon">🛡️</span>
+        <div>
+          <div class="task-text">ทำประกันภัย</div>
+          <div class="task-sub">นักกีฬา + อาสาสมัคร + Liability สาธารณะ (ITRA กำหนด)</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🏥</span>
+        <div>
+          <div class="task-text">แจ้งโรงพยาบาล</div>
+          <div class="task-sub">โรงพยาบาลในพื้นที่ + ใกล้เคียง ทราบล่วงหน้า</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🏘️</span>
+        <div>
+          <div class="task-text">แจ้งชุมชนล่วงหน้า</div>
+          <div class="task-sub">ผู้อยู่อาศัยโดยรอบ, เจ้าของที่ดิน, ล่ามสุนัข</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="timeline-phase" style="margin-bottom:12px;">
+    <div class="tl-label bg-orange">
+      <span class="phase-num">ขั้นที่ 3</span>
+      <span class="phase-name">⚙️ เตรียมงาน<br>& เปิดรับสมัคร</span>
+      <span class="phase-time">⏱ 1–3 เดือนก่อน</span>
+    </div>
+    <div class="tl-content">
+      <div class="task-card">
+        <span class="task-icon">📣</span>
+        <div>
+          <div class="task-text">ประชาสัมพันธ์</div>
+          <div class="task-sub">ระยะ, สนาม, ความเสี่ยง, อุปกรณ์บังคับ, Cut-off</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">👥</span>
+        <div>
+          <div class="task-text">รับสมัครนักกีฬา</div>
+          <div class="task-sub">เก็บข้อมูล: กรุ๊ปเลือด, โรคประจำตัว, ผู้ติดต่อฉุกเฉิน</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🦺</span>
+        <div>
+          <div class="task-text">จัดหาอาสาสมัคร</div>
+          <div class="task-sub">ฝึกอบรม, มอบหมายหน้าที่เป็นลายลักษณ์อักษร</div>
+        </div>
+      </div>
+      <div class="task-card critical">
+        <span class="task-icon">🏥</span>
+        <div>
+          <div class="task-text">วางแผนการแพทย์</div>
+          <div class="task-sub">ทีม, อุปกรณ์, AED ทุกสถานี, โปรโตคอลฉุกเฉิน</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🚩</span>
+        <div>
+          <div class="task-text">เตรียมป้ายเส้นทาง</div>
+          <div class="task-sub">ป้ายระยะ, เลี้ยว, Cut-off, ริบบิ้น, ป้ายผิดทาง</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">👕</span>
+        <div>
+          <div class="task-text">ผลิต BIB / เสื้อ / เหรียญ</div>
+          <div class="task-sub">สั่งผลิตล่วงหน้า, ตรวจสอบจำนวน</div>
+        </div>
+      </div>
+      <div class="task-card critical">
+        <span class="task-icon">🔀</span>
+        <div>
+          <div class="task-text">แผนยกเลิก/เลื่อนงาน</div>
+          <div class="task-sub">เกณฑ์การตัดสินใจ: พายุ, ดินถล่ม, น้ำป่า + ช่องทางแจ้ง</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="timeline-phase" style="margin-bottom:12px;">
+    <div class="tl-label" style="background:#4c1d95;">
+      <span class="phase-num">ขั้นที่ 4</span>
+      <span class="phase-name">🏃 วันจัดงาน</span>
+      <span class="phase-time">⏱ วันแข่งขัน</span>
+    </div>
+    <div class="tl-content">
+      <div class="task-card critical">
+        <span class="task-icon">✅</span>
+        <div>
+          <div class="task-text">ตรวจป้ายเส้นทางครบ</div>
+          <div class="task-sub">ทุกจุดก่อนปล่อยตัว, ยืนยันทีมงานทุกฝ่าย</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🎪</span>
+        <div>
+          <div class="task-text">ติดตั้งบริเวณงาน</div>
+          <div class="task-sub">เต็นท์, จุดรับสมัคร, สเตจ, ป้าย, เส้น Start/Finish</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">📦</span>
+        <div>
+          <div class="task-text">แจก BIB & Kit</div>
+          <div class="task-sub">ตรวจอุปกรณ์บังคับ, ชิปจับเวลา</div>
+        </div>
+      </div>
+      <div class="task-card critical">
+        <span class="task-icon">🚑</span>
+        <div>
+          <div class="task-text">เปิดสถานีการแพทย์</div>
+          <div class="task-sub">แพทย์ + พยาบาล + AED ทุกจุด, รถพยาบาล on-call</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🥤</span>
+        <div>
+          <div class="task-text">เปิด Aid Stations</div>
+          <div class="task-sub">น้ำ, เกลือแร่, อาหาร ครบทุกสถานี</div>
+        </div>
+      </div>
+      <div class="task-card critical">
+        <span class="task-icon">📡</span>
+        <div>
+          <div class="task-text">Race Control Center</div>
+          <div class="task-sub">ติดตามนักกีฬา, วิทยุสื่อสาร, ตรวจสอบ Cut-off</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🔚</span>
+        <div>
+          <div class="task-text">Sweeper & รถกวาด</div>
+          <div class="task-sub">ตามนักกีฬาคนสุดท้าย, ปิดเส้นทางปลอดภัย</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="timeline-phase">
+    <div class="tl-label" style="background:#991b1b;">
+      <span class="phase-num">ขั้นที่ 5</span>
+      <span class="phase-name">🏆 หลังงาน<br>& ปิดงาน</span>
+      <span class="phase-time">⏱ หลังเสร็จงาน</span>
+    </div>
+    <div class="tl-content">
+      <div class="task-card critical">
+        <span class="task-icon">🧹</span>
+        <div>
+          <div class="task-text">เก็บป้ายทั้งหมด</div>
+          <div class="task-sub">ริบบิ้น, ป้าย, ขยะ — คืนพื้นที่สู่สภาพเดิม</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">📊</span>
+        <div>
+          <div class="task-text">ประกาศผลการแข่งขัน</div>
+          <div class="task-sub">เว็บไซต์ + โซเชียล, ภาพถ่าย, วีดีโอไฮไลต์</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">🙏</span>
+        <div>
+          <div class="task-text">ขอบคุณทุกฝ่าย</div>
+          <div class="task-sub">สปอนเซอร์, อาสาสมัคร, หน่วยงาน, เจ้าของพื้นที่</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <span class="task-icon">📝</span>
+        <div>
+          <div class="task-text">ประชุมประเมินผล (AAR)</div>
+          <div class="task-sub">ถอดบทเรียน, บันทึกสิ่งที่ดีและควรปรับปรุง</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== SECTION 4: ITRA STANDARD ===== -->
+<div class="section-head">
+  <div class="tag" style="background:#dbeafe;color:#1e3a8a;">ITRA International Standard</div>
+  <h2>การประเมินสนาม — มาตรฐานสากล</h2>
+  <p>International Trail Running Association ใช้ 3 ตัวชี้วัดในการจัดระดับสนาม</p>
+</div>
+
+<div class="itra-wrap">
+  <div class="itra-card">
+    <div class="ic-icon">💪</div>
+    <h4>Endurance Points</h4>
+    <div class="ic-score">0–6</div>
+    <p>บ่งบอกความยากโดยรวมของสนาม (ระยะทาง + ความสูงสะสม)</p>
+  </div>
+  <div class="itra-card">
+    <div class="ic-icon">⛰️</div>
+    <h4>Mountain Level</h4>
+    <div class="ic-score" style="color:#7c3aed;">0–12</div>
+    <p>ความยากด้านภูมิประเทศและความสูง สำหรับผู้เข้าร่วมที่ต้องใช้ความพยายามพิเศษ</p>
+  </div>
+  <div class="itra-card">
+    <div class="ic-icon">🏅</div>
+    <h4>Finisher Criteria</h4>
+    <div class="ic-score" style="color:#059669;">%</div>
+    <p>วิเคราะห์จากข้อมูลสนามและเวลาที่กำหนด คาดการณ์อัตราผู้เข้าเส้นชัย</p>
+  </div>
+</div>
+
+<!-- MAP REQUIREMENTS -->
+<div style="max-width:1080px;margin:0 auto;padding:0 20px 20px;">
+  <div style="background:white;border-radius:20px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,0.06);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+    <div>
+      <div style="font-size:28px;margin-bottom:8px;">🗺️</div>
+      <h4 style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:8px;">ข้อกำหนดแผนที่</h4>
+      <ul style="list-style:none;font-size:13px;color:#475569;display:flex;flex-direction:column;gap:6px;">
+        <li>→ สเกล 1:50,000 ขึ้นไป</li>
+        <li>→ รองรับ GPS + พิกัด Grid</li>
+        <li>→ ทุกคนได้รับแผนที่ฉบับเดียวกัน</li>
+        <li>→ มีคำอธิบายสัญลักษณ์ครบ</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:28px;margin-bottom:8px;">📍</div>
+      <h4 style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:8px;">แผนที่ต้องแสดง</h4>
+      <ul style="list-style:none;font-size:13px;color:#475569;display:flex;flex-direction:column;gap:6px;">
+        <li>→ เส้นทางหลัก + เส้นทางฉุกเฉิน</li>
+        <li>→ จุด Checkpoint + Cut-off Time</li>
+        <li>→ Aid Stations + สถานีการแพทย์</li>
+        <li>→ จุดเสี่ยงภัยและเขตอันตราย</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:28px;margin-bottom:8px;">🔴</div>
+      <h4 style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:8px;">ระบายสีแผนที่</h4>
+      <ul style="list-style:none;font-size:13px;color:#475569;display:flex;flex-direction:column;gap:6px;">
+        <li>→ เส้นทางหลัก (สีเด่น)</li>
+        <li>→ เส้นทางฉุกเฉิน (สีอื่น)</li>
+        <li>→ เขตอันตราย (สีแดง)</li>
+        <li>→ ใช้เฉดสีเพื่ออ่านง่ายขึ้น</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:28px;margin-bottom:8px;">🏷️</div>
+      <h4 style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:8px;">คำบรรยายเส้นทาง</h4>
+      <ul style="list-style:none;font-size:13px;color:#475569;display:flex;flex-direction:column;gap:6px;">
+        <li>→ ตัวอักษร 11 มม. (พกพาสะดวก)</li>
+        <li>→ ใส่เลขบรรทัดกำกับ</li>
+        <li>→ พิกัดทุก Checkpoint</li>
+        <li>→ ระยะทางจากจุดเริ่มต้นทุกจุด</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 5: MANDATORY GEAR ===== -->
+<div class="section-head">
+  <div class="tag" style="background:#fef3c7;color:#92400e;">อุปกรณ์บังคับ (Mandatory Gear)</div>
+  <h2>ทุกชิ้นต้องพกติดตัวตลอดการแข่งขัน</h2>
+  <p>ตามมาตรฐาน ITRA — ผู้จัดต้องกำหนดและตรวจสอบ</p>
+</div>
+
+<div class="gear-wrap">
+  <div class="gear-grid">
+    <div class="gear-item">
+      <div class="gi">🍫</div>
+      <p>อาหารฉุกเฉิน</p>
+      <small>สำหรับ 12 ชม.</small>
+    </div>
+    <div class="gear-item">
+      <div class="gi">🩹</div>
+      <p>ปฐมพยาบาล</p>
+      <small>พลาสเตอร์กันน้ำ</small>
+    </div>
+    <div class="gear-item">
+      <div class="gi">🧥</div>
+      <p>เสื้อแจ็กเกต</p>
+      <small>กันน้ำ + กันฝน</small>
+    </div>
+    <div class="gear-item">
+      <div class="gi">🔦</div>
+      <p>ไฟฉาย</p>
+      <small>+ แบตเตอรี่สำรอง</small>
+    </div>
+    <div class="gear-item">
+      <div class="gi">📱</div>
+      <p>โทรศัพท์มือถือ</p>
+      <small>พร้อมแบตเตอรี่</small>
+    </div>
+    <div class="gear-item">
+      <div class="gi">💧</div>
+      <p>น้ำดื่ม</p>
+      <small>ปริมาณเพียงพอ</small>
+    </div>
+    <div class="gear-item">
+      <div class="gi">📯</div>
+      <p>นกหวีด</p>
+      <small>สัญญาณฉุกเฉิน</small>
+    </div>
+    <div class="gear-item">
+      <div class="gi">🗺️</div>
+      <p>แผนที่แข่งขัน</p>
+      <small>ฉบับเดียวกันทุกคน</small>
+    </div>
+    <div class="gear-item">
+      <div class="gi">🩱</div>
+      <p>กางเกงขายาว</p>
+      <small>กันน้ำ/กันลม</small>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 6: SAFETY & MEDICAL ===== -->
+<div class="section-head">
+  <div class="tag" style="background:#fee2e2;color:#991b1b;">ความปลอดภัยและการแพทย์</div>
+  <h2>แผนการแพทย์ — หัวใจของการจัดงาน</h2>
+  <p>ITRA กำหนดให้มีแผนการแพทย์ที่ครอบคลุมและปฏิบัติได้จริง</p>
+</div>
+
+<!-- Safety Flow -->
+<div class="safety-wrap">
+  <div style="margin-bottom:16px;">
+    <div style="background:white;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+      <div style="background:#991b1b;color:white;padding:14px 24px;font-size:14px;font-weight:700;">⚡ ลำดับการตอบสนองฉุกเฉิน</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
+        <div style="padding:20px 16px;border-right:1px solid #f1f5f9;">
+          <div style="font-size:32px;font-weight:800;color:#f1f5f9;margin-bottom:6px;">01</div>
+          <h4 style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:6px;">แจ้งเหตุ</h4>
+          <p style="font-size:12px;color:#64748b;">วิทยุ / โทรศัพท์ → Race Control</p>
+        </div>
+        <div style="padding:20px 16px;border-right:1px solid #f1f5f9;">
+          <div style="font-size:32px;font-weight:800;color:#f1f5f9;margin-bottom:6px;">02</div>
+          <h4 style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:6px;">ปฐมพยาบาล</h4>
+          <p style="font-size:12px;color:#64748b;">ทีมแพทย์เคลื่อนที่ในพื้นที่</p>
+        </div>
+        <div style="padding:20px 16px;border-right:1px solid #f1f5f9;">
+          <div style="font-size:32px;font-weight:800;color:#f1f5f9;margin-bottom:6px;">03</div>
+          <h4 style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:6px;">ส่งตัว</h4>
+          <p style="font-size:12px;color:#64748b;">รถเข้าได้: &lt;1 ชม. / เข้าไม่ได้: &lt;2 ชม.</p>
+        </div>
+        <div style="padding:20px 16px;border-right:1px solid #f1f5f9;">
+          <div style="font-size:32px;font-weight:800;color:#f1f5f9;margin-bottom:6px;">04</div>
+          <h4 style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:6px;">โรงพยาบาล</h4>
+          <p style="font-size:12px;color:#64748b;">ประสานล่วงหน้า, เตรียม ER</p>
+        </div>
+        <div style="padding:20px 16px;">
+          <div style="font-size:32px;font-weight:800;color:#f1f5f9;margin-bottom:6px;">05</div>
+          <h4 style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:6px;">รายงาน</h4>
+          <p style="font-size:12px;color:#64748b;">บันทึกเหตุการณ์ทุกกรณี</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="medical-wrap" style="padding-bottom:20px;">
+  <div class="med-card">
+    <h4>🏥 สถานีการแพทย์หลัก (Primary)</h4>
+    <ul class="med-list">
+      <li>ตั้งบริเวณที่นักกีฬาผ่านมาก (Aid Station หลัก)</li>
+      <li>พื้นที่ 15 ตร.ม. ต่อนักกีฬา 1,000 คน</li>
+      <li>มีแอร์ (ร้อน) หรือเครื่องทำความร้อน (หนาว)</li>
+      <li>ไฟฟ้า + น้ำสะอาด + โทรศัพท์</li>
+      <li>AED พร้อมใช้งานตลอดเวลา</li>
+    </ul>
+  </div>
+  <div class="med-card">
+    <h4>⛑️ สถานีการแพทย์รอง (Secondary)</h4>
+    <ul class="med-list">
+      <li>ตั้งระหว่างสถานีหลัก บนจุดเสี่ยง</li>
+      <li>ทีมช่วยเหลืออย่างน้อย 6 คน (เขตเดิน)</li>
+      <li>อุปกรณ์รักษาอุณหภูมิร่างกาย (ผ้าห่มฉุกเฉิน)</li>
+      <li>พร้อมขนส่งผู้บาดเจ็บออกจากพื้นที่</li>
+      <li>ประสานกับสถานีหลักตลอดเวลา</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== SECTION 7: KEY RULES ===== -->
+<div class="section-head">
+  <div class="tag" style="background:#d1fae5;color:#064e3b;">กฎสำคัญที่ไม่ควรพลาด</div>
+  <h2>10 สิ่งที่ต้องรู้ก่อนจัดงาน</h2>
+  <p>สิ่งที่คู่มือเน้นย้ำซ้ำๆ ว่าสำคัญที่สุด</p>
+</div>
+
+<div class="rules-grid" style="padding-bottom:40px;">
+  <div class="rule-card border-red">
+    <div class="rule-icon">⚠️</div>
+    <h4>ผู้จัดรับผิดชอบเพียงผู้เดียว</h4>
+    <p>แม้นักกีฬาเซ็น Waiver ยอมรับความเสี่ยงแล้ว ผู้จัดก็ยังมีความรับผิดชอบทางกฎหมาย</p>
+    <span class="rule-badge" style="background:#fee2e2;color:#dc2626;">บังคับรู้</span>
+  </div>
+  <div class="rule-card border-orange">
+    <div class="rule-icon">🗺️</div>
+    <h4>ป้ายชัดกว่าที่คิด</h4>
+    <p>"จุดที่คิดว่าใครก็ดูออก" คือจุดที่ต้องติดป้ายมากที่สุด เพราะนักวิ่งอ่อนเพลียตัดสินใจได้ช้า</p>
+    <span class="rule-badge" style="background:#fef3c7;color:#d97706;">เน้นมาก</span>
+  </div>
+  <div class="rule-card border-green">
+    <div class="rule-icon">🔍</div>
+    <h4>สำรวจเส้นทางล่วงหน้า</h4>
+    <p>สำรวจ 1 ปีก่อน แล้วตรวจซ้ำก่อน 1 สัปดาห์ ป่าเปลี่ยนแปลงทุกฤดูกาล</p>
+    <span class="rule-badge" style="background:#d1fae5;color:#059669;">ความปลอดภัย</span>
+  </div>
+  <div class="rule-card border-blue">
+    <div class="rule-icon">📋</div>
+    <h4>อบรมอาสาสมัครทุกคน</h4>
+    <p>ไม่ใช่แค่แต่งตั้งตำแหน่ง — ต้องสาธิต มอบเอกสาร และตรวจสอบความเข้าใจ</p>
+    <span class="rule-badge" style="background:#dbeafe;color:#1d4ed8;">ทีมงาน</span>
+  </div>
+  <div class="rule-card border-purple">
+    <div class="rule-icon">🌤️</div>
+    <h4>วางแผนสภาพอากาศ</h4>
+    <p>กำหนดเกณฑ์ชัดเจนว่าเมื่อไหรจะยกเลิก/เลื่อน และซักซ้อมการประกาศ</p>
+    <span class="rule-badge" style="background:#ede9fe;color:#7c3aed;">ฉุกเฉิน</span>
+  </div>
+  <div class="rule-card border-teal">
+    <div class="rule-icon">🚑</div>
+    <h4>AED ทุกสถานีแพทย์</h4>
+    <p>เครื่องกระตุกหัวใจอัตโนมัติต้องพร้อมใช้ตลอดเส้นทาง ตามมาตรฐาน ITRA</p>
+    <span class="rule-badge" style="background:#cffafe;color:#0891b2;">ITRA</span>
+  </div>
+  <div class="rule-card border-orange">
+    <div class="rule-icon">📱</div>
+    <h4>ระบบสื่อสารสำรอง</h4>
+    <p>วิทยุ + โทรศัพท์ + Line/Facebook — กำหนดโปรโตคอลชัดเจน ซ้อมก่อนงาน</p>
+    <span class="rule-badge" style="background:#fef3c7;color:#d97706;">สำคัญ</span>
+  </div>
+  <div class="rule-card border-red">
+    <div class="rule-icon">🧹</div>
+    <h4>คืนพื้นที่สู่สภาพเดิม</h4>
+    <p>เก็บป้าย ริบบิ้น และขยะทั้งหมดออกจากเส้นทาง เพื่อรักษาสิทธิ์จัดงานครั้งต่อไป</p>
+    <span class="rule-badge" style="background:#fee2e2;color:#dc2626;">บังคับ</span>
+  </div>
+  <div class="rule-card border-green">
+    <div class="rule-icon">💊</div>
+    <h4>เก็บข้อมูลสุขภาพนักกีฬา</h4>
+    <p>กรุ๊ปเลือด + โรคประจำตัว + ผู้ติดต่อฉุกเฉิน ต้องเข้าถึงได้ทันทีในวันแข่งขัน</p>
+    <span class="rule-badge" style="background:#d1fae5;color:#059669;">การแพทย์</span>
+  </div>
+  <div class="rule-card border-blue">
+    <div class="rule-icon">📝</div>
+    <h4>ถอดบทเรียนทุกครั้ง</h4>
+    <p>ประชุม AAR หลังงาน บันทึกสิ่งที่ดีและที่ต้องปรับ — สำหรับการจัดงานครั้งต่อไป</p>
+    <span class="rule-badge" style="background:#dbeafe;color:#1d4ed8;">พัฒนา</span>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<div class="footer">
+  <strong>Trail Running Event Guide — ฉบับสรุป</strong>
+  <p>อ้างอิงจาก: คู่มือการจัดกิจกรรมวิ่งตามภูมิประเทศ (Trail Running) กระทรวงการท่องเที่ยวและกีฬา<br>
+  ร่วมกับมาตรฐาน ITRA (International Trail Running Association)</p>
+</div>
+
+</body>
+</html>
